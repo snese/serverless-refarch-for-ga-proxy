@@ -14,11 +14,11 @@ class BonjourFargate(core.Stack):
 
         # Create VPC and Fargate Cluster
         # NOTE: Limit AZs to avoid reaching resource quotas
-        vpc = ec2.Vpc.from_lookup(
-            self, 'vpc',
-            vpc_id='vpc-67a9460e'
-        )
-
+        vpc = ec2.Vpc(
+            self, "MyVpc",
+            max_azs=2
+        )        
+        
         cluster = ecs.Cluster(
             self, 'Ec2Cluster',
             vpc=vpc
