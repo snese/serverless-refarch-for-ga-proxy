@@ -28,7 +28,7 @@ class BonjourFargate(core.Stack):
         fargate_service = ecs_patterns.NetworkLoadBalancedFargateService(
             self, "FargateService",
             cluster=cluster,
-            public_load_balancer = False,
+            public_load_balancer = True,
             task_image_options={
                 'image': ecs.ContainerImage.from_asset("../docker_folder")
             }
