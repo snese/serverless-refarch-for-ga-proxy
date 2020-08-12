@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_globalaccelerator as globalaccelerator,
     core,
 )
+import os
 
 
 class BonjourFargate(core.Stack):
@@ -27,6 +28,7 @@ class BonjourFargate(core.Stack):
         fargate_service = ecs_patterns.NetworkLoadBalancedFargateService(
             self, "FargateService",
             cluster=cluster,
+            public_load_balancer = False,
             task_image_options={
                 'image': ecs.ContainerImage.from_asset("../docker_folder")
             }
@@ -52,5 +54,7 @@ class BonjourFargate(core.Stack):
         ) 
 
 app = core.App()
-BonjourFargate(app, "hls-hk",env = core.Environment(account= '927529796467', region='ap-east-1'))
+BonjourFargate(app, "ga-hls-default", env=core.Environment(
+    account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
+    region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"])))
 app.synth()
