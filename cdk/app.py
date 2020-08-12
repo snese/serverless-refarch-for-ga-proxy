@@ -1,4 +1,3 @@
-
 from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
@@ -17,8 +16,8 @@ class BonjourFargate(core.Stack):
         vpc = ec2.Vpc(
             self, "MyVpc",
             max_azs=2
-        )        
-        
+        )
+
         cluster = ecs.Cluster(
             self, 'Ec2Cluster',
             vpc=vpc
@@ -26,7 +25,7 @@ class BonjourFargate(core.Stack):
 
         fargate_service = ecs_patterns.NetworkLoadBalancedFargateService(
             self, "FargateService",
-            cpu = 256, memory_limit_mib = 1024,
+            cluster=cluster,
             task_image_options={
                 'image': ecs.ContainerImage.from_asset("../docker_folder")
             }
@@ -41,8 +40,8 @@ class BonjourFargate(core.Stack):
         core.CfnOutput(
             self, "LoadBalancerDNS",
             value=fargate_service.load_balancer.load_balancer_dns_name
-        )
+        ) 
 
 app = core.App()
-BonjourFargate(app, "Bonjour-local",env = core.Environment(account= '927529796467', region='ap-east-1'))
+BonjourFargate(app, "hls-hk",env = core.Environment(account= '927529796467', region='ap-east-1'))
 app.synth()
