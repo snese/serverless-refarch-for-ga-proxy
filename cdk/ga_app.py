@@ -45,9 +45,9 @@ class ga_stack(core.Stack):
         
         super().__init__(scope, id,**kwargs)
         accelerator = globalaccelerator.Accelerator(self, "Accelerator")
-        listener1 = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
+        my_listener = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
         
-        endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener=listener1)
+        endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener = my_listener)
         endpoint_group.add_load_balancer("NlbEndpoint", my_nlb_fargate.fargate_service.load_balancer)
 
 
