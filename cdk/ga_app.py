@@ -62,7 +62,6 @@ my_env = core.Environment(
     region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
     
 my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
-print(my_nlb_fargate)
 my_ga = ga_stack(app, "ga-default", env= my_env)
 
 
