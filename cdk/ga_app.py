@@ -40,14 +40,24 @@ class nlb_fargate_stack(core.Stack):
             description="Allow http inbound from VPC"
         )
         
+        scaling = self.fargate_service.service.auto_scale_task_count(
+            max_capacity=1
+        )
+        scaling.scale_on_cpu_utilization(
+            "CpuScaling",
+            target_utilization_percent=70,
+            scale_in_cooldown=core.Duration.seconds(60),
+            scale_out_cooldown=core.Duration.seconds(60),
+        )
+        
 class ga_stack(core.Stack):
     def __init__(self, scope: core.Construct, id: str,**kwargs) -> None:
         
         super().__init__(scope, id,**kwargs)
         accelerator = globalaccelerator.Accelerator(self, "Accelerator")
-        my_listener = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
+        listener1 = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
         
-        endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener = my_listener)
+        endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener=listener1)
         endpoint_group.add_load_balancer("NlbEndpoint", my_nlb_fargate.fargate_service.load_balancer)
 
 
@@ -62,6 +72,7 @@ my_env = core.Environment(
     region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
     
 my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
+print(my_nlb_fargate)
 my_ga = ga_stack(app, "ga-default", env= my_env)
 
 
