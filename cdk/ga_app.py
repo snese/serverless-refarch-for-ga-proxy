@@ -1,4 +1,3 @@
-import os
 from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
@@ -6,6 +5,8 @@ from aws_cdk import (
     aws_globalaccelerator as globalaccelerator,
     core,
 )
+import os
+import click
 
 
 class nlb_fargate_stack(core.Stack):
@@ -15,9 +16,9 @@ class nlb_fargate_stack(core.Stack):
 
         # Create VPC and Fargate Cluster
         # NOTE: Limit AZs to avoid reaching resource quotas
-        vpc = ec2.Vpc(
-            self, "MyVpc",
-            max_azs=2
+        vpc = ec2.Vpc.from_lookup(
+            self, "VPC", 
+            is_default = True
         )
 
         cluster = ecs.Cluster(
@@ -66,14 +67,16 @@ class ga_stack(core.Stack):
             value=accelerator.dns_name
         ) 
 
-app = core.App()
-my_env = core.Environment(
-    account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
-    region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
+
+
+if __name__ == '__main__':
     
-my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
-print(my_nlb_fargate)
-my_ga = ga_stack(app, "ga-default", env= my_env)
-
-
-app.synth()
+    app = core.App()
+    my_env = core.Environment(
+        account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
+        region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
+        
+    my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
+    print(my_nlb_fargate)
+    my_ga = ga_stack(app, "ga-default", env= my_env)
+    app.synth()
