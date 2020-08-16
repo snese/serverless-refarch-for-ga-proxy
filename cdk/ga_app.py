@@ -55,6 +55,8 @@ class ga_stack(core.Stack):
     def __init__(self, scope: core.Construct, id: str,**kwargs) -> None:
         
         super().__init__(scope, id,**kwargs)
+        
+        my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
         accelerator = globalaccelerator.Accelerator(self, "Accelerator")
         listener1 = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
         
@@ -76,7 +78,6 @@ if __name__ == '__main__':
         account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
         region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
         
-    my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
-    print(my_nlb_fargate)
+    
     my_ga = ga_stack(app, "ga-default", env= my_env)
     app.synth()
