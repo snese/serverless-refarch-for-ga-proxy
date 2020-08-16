@@ -1,3 +1,4 @@
+import os
 from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
@@ -5,7 +6,6 @@ from aws_cdk import (
     aws_globalaccelerator as globalaccelerator,
     core,
 )
-import os
 
 
 class nlb_fargate_stack(core.Stack):
