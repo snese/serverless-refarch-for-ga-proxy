@@ -58,7 +58,8 @@ class ga_stack(core.Stack):
         
         my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
         accelerator = globalaccelerator.Accelerator(self, "Accelerator")
-        listener1 = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, port_ranges = [{"fromPort": 80,"toPort": 80}])
+        listener1 = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, 
+        port_ranges = [{"fromPort": 80,"toPort": 80},{"fromPort": 443,"toPort": 443}])
         
         endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener=listener1)
         endpoint_group.add_load_balancer("NlbEndpoint", my_nlb_fargate.fargate_service.load_balancer)
