@@ -16,9 +16,9 @@ class nlb_fargate_stack(core.Stack):
 
         # Create VPC and Fargate Cluster
         # NOTE: Limit AZs to avoid reaching resource quotas
-        vpc = ec2.Vpc.from_lookup(
-            self, "VPC", 
-            is_default = True
+        vpc = ec2.Vpc(
+            self, "MyVpc",
+            max_azs=2
         )
 
         cluster = ecs.Cluster(
