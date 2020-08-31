@@ -50,7 +50,7 @@ class nlb_fargate_stack(core.Stack):
         )
         
         scaling = self.fargate_service.service.auto_scale_task_count(
-            max_capacity=1
+            max_capacity = 2
         )
         scaling.scale_on_cpu_utilization(
             "CpuScaling",
