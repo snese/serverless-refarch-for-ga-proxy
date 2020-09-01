@@ -38,7 +38,7 @@ class nlb_fargate_stack(core.Stack):
             cluster=cluster,
             public_load_balancer = True,
             task_image_options={
-                'image': ecs.ContainerImage.from_registry("hhh2012aa/hls-nginx")
+                'image': ecs.ContainerImage.from_registry("<docker-username>/hls-nginx")
             }
         )
         
@@ -50,7 +50,7 @@ class nlb_fargate_stack(core.Stack):
         )
         
         scaling = self.fargate_service.service.auto_scale_task_count(
-            max_capacity = 2
+            max_capacity=1
         )
         scaling.scale_on_cpu_utilization(
             "CpuScaling",
@@ -65,17 +65,16 @@ class nlb_fargate_stack(core.Stack):
         print()
         
 class ga_stack(core.Stack):
-    def __init__(self, scope: core.Construct, id: str,**kwargs) -> None:
+    def __init__(self, scope: core.Construct, id: str, fargate_service: ecs_patterns.NetworkLoadBalancedFargateService,**kwargs) -> None:
         
         super().__init__(scope, id,**kwargs)
-        
-        my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env)
+    
         accelerator = globalaccelerator.Accelerator(self, "Accelerator")
         my_listener = globalaccelerator.Listener(self, "Listener",accelerator = accelerator, 
         port_ranges = [{"fromPort": 80,"toPort": 80},{"fromPort": 443,"toPort": 443}])
         
         endpoint_group = globalaccelerator.EndpointGroup(self, "Group", listener=my_listener)
-        endpoint_group.add_load_balancer("NlbEndpoint", my_nlb_fargate.fargate_service.load_balancer)
+        endpoint_group.add_load_balancer("NlbEndpoint", fargate_service.load_balancer)
 
 
         core.CfnOutput(
@@ -109,9 +108,9 @@ def create_conf(ivsurl):
     % (ivsurl))
     
     client = docker.from_env()
-    client.login(username = <yourid>, password = <yourpassword>)
-    client.images.build(path = "./docker_folder",tag = "<yourid>/hls-nginx") 
-    client.images.push('<yourid>/hls-nginx')
+    client.login(username = <docker-username>, password = <docker-password>)
+    client.images.build(path = "./docker_folder",tag = "<docker-username>/hls-nginx") 
+    client.images.push('<docker-username>/hls-nginx')
 
 
 
@@ -126,6 +125,6 @@ if __name__ == '__main__':
         account=os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"]),
         region=os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"]))
         
-    
-    my_ga = ga_stack(app, "ga-default", env= my_env) 
+    my_nlb_fargate = nlb_fargate_stack(app, "hls-default", env= my_env).fargate_service
+    my_ga = ga_stack(app, "ga-default",my_nlb_fargate, env= my_env) 
     app.synth()
