@@ -5,9 +5,12 @@ import cdk = require('@aws-cdk/core');
 import globalaccelerator = require('@aws-cdk/aws-globalaccelerator');
 import { TLSSocket } from 'tls';
 import { Port } from '@aws-cdk/aws-ec2';
+import path = require('path')
+
+
 
 export class nlb_stack extends cdk.Stack {
-
+  
   public nlb_fargate: ecs_patterns.NetworkLoadBalancedFargateService ;
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -22,7 +25,7 @@ export class nlb_stack extends cdk.Stack {
       cluster,
       publicLoadBalancer: false,
       taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
+        image: ecs.ContainerImage.fromAsset(path.resolve('./', 'docker_folder'))      
       },
     });
 
