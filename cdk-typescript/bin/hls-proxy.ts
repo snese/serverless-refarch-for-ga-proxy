@@ -5,8 +5,7 @@ import { nlb_stack,ga_stack } from '../lib/hls-proxy-stack';
 import {create_conf} from '../lib/create-conf'
 
 const app = new cdk.App();
-const ivs_url = app.node.tryGetContext('ivsurl');
-create_conf(ivs_url)
+
 
 const my_env = { 
     account: process.env.CDK_DEFAULT_ACCOUNT, 
