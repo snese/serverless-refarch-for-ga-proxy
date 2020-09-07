@@ -23,7 +23,7 @@ export class nlb_stack extends cdk.Stack {
     // Instantiate Fargate Service with just cluster and image
       this.nlb_fargate = new ecs_patterns.NetworkLoadBalancedFargateService(this, "FargateService", {
       cluster,
-      publicLoadBalancer: false,
+      publicLoadBalancer: true,
       taskImageOptions: {
         image: ecs.ContainerImage.fromAsset(path.resolve('./', 'docker_folder'))      
       },
