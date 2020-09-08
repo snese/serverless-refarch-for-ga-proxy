@@ -9,6 +9,7 @@ TBW
 
 # How to deploy
 ## Prerequisites
+1. [Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 ## Deployment 
 ```
 # 1. Install CDK Toolkit
