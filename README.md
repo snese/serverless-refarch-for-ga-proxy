@@ -9,7 +9,7 @@ TBW
 
 # How to deploy
 ## Prerequisites
-
+## Deployment 
 ```
 # 1. Install CDK Toolkit
 $ npm install -g aws-cdk
