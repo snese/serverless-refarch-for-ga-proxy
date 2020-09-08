@@ -24,7 +24,7 @@ $ git clone https://github.com/snese/serverless-refarch-for-ga-proxy
 $ cd serverless-refarch-for-ga-proxy
 $ npm install
 
-# 4.(If it is your first time to deploy AWS CDK App) Bootstrapping an environment
+# 4. Bootstrapping an environment (If it is your first time to deploy AWS CDK App in the Region)
 $ cdk bootstrap
 
 # 5. Create a custom configuration of Nginx 
