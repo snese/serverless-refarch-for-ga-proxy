@@ -25,7 +25,7 @@ $ npm install
 # 4.(If it is your first time to deploy AWS CDK App) Bootstrapping an environment
 $ cdk bootstrap
 
-# 5. Create a custom configuration fo Nginx 
+# 5. Create a custom configuration of Nginx 
 $ node ./lib/create-conf.js <your-proxy-url>
 
 
