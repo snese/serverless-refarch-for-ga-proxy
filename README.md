@@ -8,7 +8,30 @@ AWS Fargate is a serverless compute service that helps container orchestration s
 TBW
 
 # How to deploy
-TBW
+## Prerequisites
+
+```
+# 1. Install CDK Toolkit
+$ npm install -g aws-cdk
+
+# 2. Clone the Repository
+$ git clone https://github.com/snese/serverless-refarch-for-ga-proxy
+
+# 3. Install required modules
+$ cd serverless-refarch-for-ga-proxy
+$ npm install
+
+# 4.(If it is your first time to deploy AWS CDK App) Bootstrapping an environment
+$ cdk bootstrap
+
+# 5. Create a custom configuration fo Nginx 
+$ node ./lib/create-conf.js <your-proxy-url>
+
+
+# 6. Deploy your CDK App
+$ cdk deploy "*"
+
+```
 
 # License Summary
 This library is licensed under the MIT-0 License. See the LICENSE file.
