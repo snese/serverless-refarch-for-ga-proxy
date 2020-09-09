@@ -12,7 +12,7 @@ TBW
 
 #### [Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 
-#### [Set up CDK Enviorment]
+#### Set up CDK Enviorment
 ```
 
 # 1. Install CDK Toolkit
