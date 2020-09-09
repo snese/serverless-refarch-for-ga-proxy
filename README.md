@@ -10,29 +10,37 @@ TBW
 # How to deploy
 ## Prerequisites
 [Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-## Deployment 
 ```
 # Estimated deployment time: 10 min
 
 # 1. Install CDK Toolkit
-$ npm install -g aws-cdk
+npm install -g aws-cdk
 
 # 2. Clone the Repository
-$ git clone https://github.com/snese/serverless-refarch-for-ga-proxy
+git clone https://github.com/snese/serverless-refarch-for-ga-proxy
 
 # 3. Install required modules
-$ cd serverless-refarch-for-ga-proxy
-$ npm install
+cd serverless-refarch-for-ga-proxy
+npm install
 
 # 4. Bootstrapping an environment (If it is your first time to deploy AWS CDK App in the Region)
-$ cdk bootstrap
-
-# 5. Create a custom configuration of Nginx 
-$ node ./lib/create-conf.js <your-proxy-url>
+cdk bootstrap
 
 
-# 6. Deploy your CDK App
-$ cdk deploy "*"
+```
+## Deployment 
+
+
+
+```
+# Estimated deployment time: 5 min
+
+# 1. Create a custom configuration of Nginx 
+node ./lib/create-conf.js <your-proxy-url>
+
+
+# 2. Deploy your CDK App
+cdk deploy "*"
 
 ```
 
