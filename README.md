@@ -8,10 +8,12 @@ AWS Fargate is a serverless compute service that helps container orchestration s
 TBW
 
 # How to deploy
-## Prerequisites
-[Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+### Prerequisites
+
+####[Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+
+
 ```
-# Estimated deployment time: 10 min
 
 # 1. Install CDK Toolkit
 npm install -g aws-cdk
@@ -29,8 +31,6 @@ cdk bootstrap
 
 ```
 ## Deployment 
-
-
 
 ```
 # Estimated deployment time: 5 min
