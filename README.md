@@ -1,11 +1,11 @@
 # AWS Serverless Reference Architecture for AWS Global Accelerator with Reverse Proxy
 ![Reference Architecture](Architecture.jpg)
 
-Amazon Interactive Video Service (https://aws.amazon.com/ivs/) (Amazon IVS) is a managed live streaming solution that is quick and easy to set up, and ideal for creating interactive video experiences. It provides *ultra low latency (< 5s) *service for video streaming.
+Amazon Interactive Video Service (https://aws.amazon.com/ivs/) (Amazon IVS) is a managed live streaming solution that is quick and easy to set up, and ideal for creating interactive video experiences. It provides ultra low latency (< 5s) service for video streaming.
 
-Currently, Amazon IVS is not supported in China Region. We implement a serverless solution to serve the China user.  AWS Fargate with auto scaling group and Network Load Balancer are used to host a reverse proxy to for IVS playback URL. AWS global accelerator is used to decrease network latency. 
+Currently, Amazon IVS is not supported in China Region. We implement a serverless solution to serve the China user.  AWS Fargate with auto scaling group and Network Load Balancer are used to host a reverse proxy to for IVS playback URL. AWS global accelerator is used to reduce network latency. 
 
-To achieve the *ultra low latency*,* *the Amazon IVS player is required, HTTPS URL is required in IVS SDK, Amazon Route 53 is used to route traffic to NLB with TLS certificate provided by AWS Certificate Manager.
+To achieve the ultra low latency, the Amazon IVS player is required, HTTPS URL is required in IVS SDK, Amazon Route 53 is used to route traffic to NLB with TLS certificate provided by AWS Certificate Manager.
 
 
 # Why Reverse Proxy on AWS Fargate
