@@ -5,7 +5,7 @@ Amazon Interactive Video Service (https://aws.amazon.com/ivs/) (Amazon IVS) is a
 
 Currently, Amazon IVS is not supported in some regions. We implement a serverless solution to serve the user in unsupported regions. AWS Fargate with auto scaling group and Network Load Balancer are used to host a reverse proxy to for IVS playback URL. AWS global accelerator is used to reduce network latency. 
 
-To achieve the ultra low latency, the Amazon IVS player is required, HTTPS URL is required in IVS SDK, Amazon Route 53 is used to route traffic to NLB with TLS certificate provided by AWS Certificate Manager.
+To achieve the ultra low latency, the Amazon IVS player and HTTPS playback URL is required, Amazon Route 53 is used to route traffic to NLB with TLS certificate provided by AWS Certificate Manager.
 
 
 # Why Reverse Proxy on AWS Fargate
