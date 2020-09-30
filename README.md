@@ -20,7 +20,7 @@ Example: [AGA Multiples Regions Endpoint Example](https://github.com/snese/aga-m
 ### Prerequisites
 
 #### [Install AWS CLI and set up your own configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-#### [Setting Up Node.js on an Amazon EC2 Instance](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html)
+#### [Setting Up Node.js on an Amazon EC2 Instance (if you use Cloud 9 or EC2 as CDK environment)](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html)
 #### Set up CDK Enviorment: 
 ```
 
