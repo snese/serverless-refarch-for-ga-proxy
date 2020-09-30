@@ -32,6 +32,7 @@ git clone https://github.com/snese/serverless-refarch-for-ga-proxy
 
 # 3. Install required modules
 cd serverless-refarch-for-ga-proxy
+cd cdk-typescript
 npm install
 
 # 4. Bootstrapping an environment (If it is your first time to deploy AWS CDK App in the Region)
